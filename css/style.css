@@ -72,6 +72,11 @@ main{
     width: 100%;
     height: calc(100% - 135px);
 }
+.chact-item__message{
+    width: calc(100% - 130px);
+    float: left;
+    margin: 10px 0;
+}
 .chat-container__text{
     height: 135px;
     width: 100%;
