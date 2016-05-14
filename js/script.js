@@ -6,9 +6,13 @@ $(function(){
     var messageField = $('.chat-container__text textarea');
     var messageList = $('.chat-container__items');
     
-    function Send(){
+    //SOCIAL INFO
+    var socialUser = 'anonymous';
+    var socialAvatar = 'http://gurucul.com/wp-content/uploads/2015/01/default-user-icon-profile.png';
+    
+    function send(){
         //FIELD VALUES
-        var username = socialUser || 'anonymous';
+        var username = socialUser;
         var message = messageField.val();
         
         //SAVE DATA TO FIREBASE AND EMPTY FIELD
@@ -16,23 +20,29 @@ $(function(){
         messageField.val('');
     }
     
+    $('.chat-container__text a').click(function (e) {
+        send();
+    });
+    
     // Add a callback that is triggered for each chat message.
     messagesRef.limitToLast(10).on('child_added', function (snapshot) {
         
         //GET DATA
         var data = snapshot.val();
-        var username = data.name;
+        var user = data.user;
         var message = data.text;
         
         console.log(data);
         //CREATE ELEMENTS MESSAGE & SANITIZE TEXT
         
         var itemElement = $('<div class="chat-container__item">');
-        var avatarElement = $('<div class="contacts-avatar"></div>').css('background-image','url("http://gurucul.com/wp-content/uploads/2015/01/default-user-icon-profile.png")');
+        var avatarElement = $('<div class="contacts-avatar"></div>').css('background-image','url('+ socialAvatar +')');
         var stateElement = $('<div class="contacts-state"></div>');
         
         var messageItem = $('<div class="chat-item__message"></div>');
-        var userElement = $("<h2></h2>").text(username);
+        console.log(user)
+        var userElement = $("<h2></h2>").text(user);
+        console.log(userElement)
         var messageElement = $("<p></p>").text(message);
         
         //APPENDS ELEMENTS
